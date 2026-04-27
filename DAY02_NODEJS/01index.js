@@ -10,7 +10,7 @@ console.log(user);
 // console.log(os);
 
 // Prints current system usernam
-// $ node index.js 
+// $ node index.js z
 // [Object: null prototype] {
 //   uid: -1,
 //   gid: -1,
