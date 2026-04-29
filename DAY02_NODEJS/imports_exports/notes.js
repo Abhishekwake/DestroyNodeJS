@@ -7,3 +7,6 @@ function addNumber(a,b) {
 }
 
 module.exports = {age,addNumber};
+
+// module.exports.age;
+// module.exports.addNumber;

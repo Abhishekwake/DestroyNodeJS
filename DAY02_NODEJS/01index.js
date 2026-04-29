@@ -9,7 +9,7 @@ const user =os.userInfo();
 console.log(user);
 // console.log(os);
 
-// Prints current system usernam
+// Prints current system username
 // $ node index.js z
 // [Object: null prototype] {
 //   uid: -1,
