@@ -1,36 +1,34 @@
 const express = require('express');
+const Person = require('./models/Person');
+const MenuItem = require('./models/MenuItem.js');
+const db = require('./db.js')
 const bodyParser = require('body-parser')
-const db = require("./db")
-const Person = require("./models/Person")
 
 const app = express();
 app.use(bodyParser.json());
-//post route to add a person
-app.post("/person",async(req,res)=>{
+app.post('/person',async (req,res)=>{
+    try {
+        const data = req.body;
+        const newPerson = new Person(data);
+        const response = await newPerson.save();
+        console.log("data saved")
+        res.status(200).send(response);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({error : 'Internal server error'})
+    }
+})
+app.get('/person',async(req,res) => {
     try{
-        const data = req.body; //assuming the req body contains the person data
+    const data = await Person.find();
+    console.log('data fetched');
+    res.status(200).send(data);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({Error : 'Internal sercer error'})
+    } 
+})
 
-        //creating a new person document using the mongoose model
-        const personData = new Person(data);
-        //save the new person to the database
-        const response = await personData.save();
-        console.log("Data Saved");
-        res.status(200).json(response);
-    }catch(err){
-        console.log(err);
-        res.status(500).json({error : 'Internal Server Error'})
-    }
-})
-app.get('/person',async(req,res)=>{
-    try{
-        const data = await Person.find();
-        console.log("Data fetched");
-        res.status(200).json(data);
-    }catch(err){
-        console.log(err);
-        res.status(500).json({Error : 'Internal Server Error' })
-    }
-})
 app.post('/menu', async (req,res) =>{
     try{
         const data = req.body;
@@ -53,6 +51,11 @@ app.get('/menu',async(req,res)=>{
         res.status(500).json({Error : 'Internal Server Error'});
      }
 })
-app.listen(3000,(req,res)=>{
-    console.log(`Server is running at port ${3000}`);
+
+
+app.get('/',(req,res)=>{
+    res.send("Welcome to My Restaurent API");
+})
+app.listen(3000,()=>{
+    console.log(`server is running at port 3000`);
 })
