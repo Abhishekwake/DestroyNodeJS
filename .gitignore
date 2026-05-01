@@ -2,3 +2,14 @@ node_modules/
 package-lock.json
 .env
 .DS_Store
+
+
+# Fix: Remove the leading slash
+# Change this in your .gitignore:
+
+# gitignore
+# /node_modules /only ignores root not subfolders 
+# To this:
+
+# gitignore
+# node_modules/

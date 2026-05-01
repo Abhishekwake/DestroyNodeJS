@@ -8,7 +8,7 @@
 // handles data storage, retrieval, and manipulation operations. On the other hand, a Node.js server is a runtime
 // environment that executes JavaScript code. It handles incoming requests from clients, processes them, and
 // can interact with databases like MongoDB to retrieve or update data. You would use a MongoDB server to
-// store and manage data, while a Node.js server is used to handle application logic and serve client requests.
+// store retrive and manage data, while a Node.js server is used to handle application logic and serve client requests.
 
 // Question 2: MongoDB Queries
 // a) Write a MongoDB query to create a new document in a collection named "students" with fields "name,"
