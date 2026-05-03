@@ -36,10 +36,53 @@ router.get('/:tasteType',async(req,res)=>{
         console.log('Fetched successfully');
         res.status(200).json(response); 
         }else{
-            res.status(404).json({Error : 'Invalid taste type'})
+        res.status(404).json({Error : 'Invalid taste type'})
         }
     }catch(err){
 
+    }
+})
+router.put('/:id', async(req,res)=>{
+    try{
+    // 1. get id from url parameter
+    const menuId = req.params.id;
+    // 2. get the updated menu data from the user from body 
+    const updatedMenuItem = req.body;
+    //3. find the menu item and update it to database
+    const response = await MenuItem.findByIdAndUpdate(
+        menuId,
+        updatedMenuItem,{
+            new : true,
+            runValidators : true,
+        }
+    )
+    if(!response) {
+        console.log('Menu not found');
+        return res.status(404).json({ error : 'Invalid Menu Item'});
+        // ✅ return stops execution - function exits here whhy to still continue
+    }
+    console.log('MenuItem updated successsfully');
+    res.status(200).json(response);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({ error : 'Internal Server Error'});
+    }
+})
+router.delete('/:id', async(req,res)=>{
+    try{
+        const menuId = req.params.id;
+        const response = await MenuItem.findByIdAndDelete(menuId);
+        if(!response){
+            console.log('menu item not found');
+            return res.status(404).json({error: 'Invalid menuItem it doesnt exit'})
+            // ✅ return stops execution - function exits here why to continue no meaning
+        }
+        console.log('Menu item deleted successfully');
+        res.status(200).json(response);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({error : 'Internal Server Error'});
     }
 })
 module.exports = router;

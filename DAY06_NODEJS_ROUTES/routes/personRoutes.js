@@ -68,7 +68,7 @@ router.get('/:id', async(req,res)=>{
         )
         //4. check if person exits or not
         if(!response){
-            res.send(404).json({ error : 'Person not found'})
+           return res.send(404).json({ error : 'Person not found'})
         }
         //5 . send success response
         console.log("Data Updated");
@@ -88,7 +88,7 @@ router.delete('/:id',async(req,res)=>{
      const response = await Person.findByIdAndDelete(personId);
      //3. check if person exits or not
      if(!response) {
-        res.status(404).json({ error: 'Person not found'})
+       return res.status(404).json({ error: 'Person not found'})
      }
      //4. Send success response
      console.log('Person delete successfully');
